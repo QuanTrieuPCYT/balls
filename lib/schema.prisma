@@ -1,0 +1,49 @@
+datasource db {
+    provider = "mysql"
+    url      = env("DATABASE_URL")
+}
+
+generator client {
+    provider = "prisma-client-js"
+}
+
+model User {
+    id          Int             @id @default(autoincrement())
+    createdAt   DateTime        @default(now())
+    username    String          @unique
+    email       String          @unique
+    password    String   
+    role        Role            @default(USER)
+    status      UserStatus      @default(AWAITING)
+    apikey      String?
+    links       Link[]          
+}
+
+model Link {
+    id          Int             @id @default(autoincrement())
+    createdAt   DateTime        @default(now())
+    path        String          
+    domain      String
+    expireAt    DateTime?
+    password    String?
+    status      LinkStatus      @default(ACTIVE)
+    user        User            @relation(fields: [userId], references: [id])
+    userId      Int
+}
+
+enum Role {
+    USER
+    ADMIN
+}
+
+enum UserStatus {
+    ACTIVE
+    AWAITING
+    SUSPEND
+}
+
+enum LinkStatus {
+    ACTIVE
+    DISABLED
+    SUSPEND
+}
