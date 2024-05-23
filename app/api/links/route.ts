@@ -1,5 +1,12 @@
-import { NextApiRequest, NextApiResponse } from "next";
+import { NextRequest, NextResponse } from "next/server";
+import { PrismaClient } from '@prisma/client';
+const prisma = new PrismaClient();
 
-export async function handler(req: NextApiRequest, res: NextApiResponse) {
-    res.status(200).json({ text: 'Hello' });
+export async function POST(req: NextRequest) {
+    
+
+    return NextResponse.json(
+        { message: 'Success' },
+        { status: 201 },
+    );
 }

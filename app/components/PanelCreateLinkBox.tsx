@@ -11,6 +11,14 @@ import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Calendar } from "./ui/calendar";
 import { format } from "date-fns";
+import z from "zod";
+
+const formSchema = z.object({
+    url: z.string().url("Invalid URL"),
+    path: z.string(),
+    expire: z.string(),
+    confirm_password: z.string().min(8, 'Please confirm your password'),
+})
 
 export default function PanelCreateLinkBox() {
     const [date, setDate] = useState<Date>();
