@@ -22,8 +22,9 @@ model User {
 model Link {
     id          Int             @id @default(autoincrement())
     createdAt   DateTime        @default(now())
-    path        String          
+    path        String          @unique
     domain      String
+    url         String
     expireAt    DateTime?
     password    String?
     status      LinkStatus      @default(ACTIVE)

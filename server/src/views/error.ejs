@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+    <title>Not Found</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: "Inter", sans-serif;
+            color: #fff;
+        }
+
+        .wrapper {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        
+        .astronaut {
+            filter: drop-shadow(0 16px 16px rgba(255,255,255,0.5));
+        }
+
+        @media (min-width: 768px) {
+            .inner {
+                display: flex;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="inner" style="align-items: center; margin-top: -8rem">
+            <img src="astronaut.png" height="300" alt="" class="astronaut" />
+            <div style="margin-top: -40px;">
+                <p style="text-shadow: 0 0 20px #fff; font-size: 2.25rem; font-weight: bold; margin-bottom: 0;">An error occurred</p>
+                <p style="margin-top: 0.25rem;">Something went wrong. Please try again later!</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

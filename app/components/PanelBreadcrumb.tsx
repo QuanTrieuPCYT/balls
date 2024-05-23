@@ -1,5 +1,6 @@
 import { IPanelBreadcrumb } from "@/lib/utils";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
+import Link from "next/link";
 
 export default function PanelBreadcrumb({ breadcrumb }: { breadcrumb: IPanelBreadcrumb[] }) {
     return (
@@ -7,13 +8,17 @@ export default function PanelBreadcrumb({ breadcrumb }: { breadcrumb: IPanelBrea
             <BreadcrumbList>
             {breadcrumb.map((n, i) => {
                 return (
-                    <>
+                    <div className="flex items-center gap-2" key={i}>
                     <BreadcrumbItem>
                         {
                             (n.path == null) ?
                             <BreadcrumbPage>{n.name}</BreadcrumbPage>
                             :
-                            <BreadcrumbLink href={n.path}>{n.name}</BreadcrumbLink>
+                            <BreadcrumbPage>
+                            <Link href={n.path} className="text-blue-500 hover:text-blue-500/80">
+                                {n.name}
+                            </Link>
+                            </BreadcrumbPage>
                         }
                     </BreadcrumbItem>
                     {
@@ -22,7 +27,7 @@ export default function PanelBreadcrumb({ breadcrumb }: { breadcrumb: IPanelBrea
                         :
                         ""
                     }
-                    </>
+                    </div>
                 )
             })}
             </BreadcrumbList>

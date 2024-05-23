@@ -1,17 +1,12 @@
-import AlertBox from "@/app/components/AlertBox";
+"use client";
+
 import PanelBreadcrumb from "@/app/components/PanelBreadcrumb";
 import PanelCreateLinkBox from "@/app/components/PanelCreateLinkBox";
 import PanelOverralStatistics from "@/app/components/PanelOverallStatistics";
 import PanelURLList from "@/app/components/PanelURLList/PanelURLList";
-import { ResetPasswordModal } from "@/app/components/ResetPasswordModal";
-import ThemeToggleButton from "@/app/components/ThemeToggleButton";
-import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
 import { IPanelBreadcrumb } from "@/lib/utils";
-import { Link } from "lucide-react";
+import { useSession } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 const bc: IPanelBreadcrumb[] = [
   {
@@ -20,11 +15,15 @@ const bc: IPanelBreadcrumb[] = [
   },
   {
     name: "Dashboard",
-    path: "/panel"
+    path: null
   }
 ]
 
 export default function Page() {
+  const session = useSession();
+  if (session.status == "loading") return "";
+  if (session.status == "unauthenticated") redirect('/auth');
+  console.log(session.data);
   return (
     <div className="container max-w-screen-lg w-full py-4">
       <PanelBreadcrumb breadcrumb={bc}/>
