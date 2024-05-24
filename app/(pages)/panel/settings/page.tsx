@@ -1,6 +1,7 @@
 "use client";
 
 import PanelBreadcrumb from "@/app/components/PanelBreadcrumb"
+import { global_config } from "@/lib/global";
 import { IPanelBreadcrumb } from "@/lib/utils"
 import { Lock, Pencil } from "lucide-react"
 import { useSession } from "next-auth/react";
@@ -24,7 +25,7 @@ const bc: IPanelBreadcrumb[] = [
 export default function Page() {
     const session = useSession();
     if (session.status == "loading") return "";
-    if (session.status == "unauthenticated") redirect('/auth');
+    if (session.status == "unauthenticated") redirect(`${global_config.proxied_path}/panel`)
     return (
         <div className="container max-w-screen-lg w-full py-4">
             <PanelBreadcrumb breadcrumb={bc}/>

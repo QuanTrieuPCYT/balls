@@ -1,17 +1,15 @@
 {
-    "name": "express-ts-template",
-    "version": "1.2.0",
-    "description": "Simple starter template for ExpressJs and TypeScript based on expressjs/generator and TypeScript-Node-Starter",
+    "name": "balls-server",
+    "version": "1.0.0",
     "main": "server.js",
     "scripts": {
         "start": "npm run serve",
         "build": "npm run build-ts",
         "serve": "node dist/server.js",
-        "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
-        "watch-node": "nodemon dist/server.js",
+        "watch": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Server\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run watch-node\"",
+        "watch-node": "nodemon dist/server/server.js",
         "build-ts": "tsc",
         "watch-ts": "tsc -w",
-        "lint": "eslint src/*.ts",
         "debug": "npm run build && npm run watch-debug",
         "serve-debug": "nodemon --inspect dist/server.js",
         "watch-debug": "concurrently -k -p \"[{name}]\" -n \"TypeScript,Node\" -c \"cyan.bold,green.bold\" \"npm run watch-ts\" \"npm run serve-debug\""

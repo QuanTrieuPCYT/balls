@@ -1,20 +1,17 @@
 "use client";
 
 import ThemeToggleButton from "@/app/components/ThemeToggleButton";
-import { Button } from "@/app/components/ui/button";
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/app/components/ui/card";
-import { Input } from "@/app/components/ui/input";
-import { Label } from "@/app/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/app/components/ui/tabs";
 import AuthSignInCard from "@/app/components/AuthSignInCard";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
 import AuthSignUpCard from "@/app/components/AuthSignUpCard";
+import { global_config } from "@/lib/global";
 
 export default function Page() {
     const session = useSession();
     if (session.status == "loading") return "";
-    if (session.status == "authenticated") redirect("/panel");
+    if (session.status == "authenticated") redirect(`${global_config.proxied_path}/panel`);
 
     return (
         <div className="flex w-full p-8 justify-center">

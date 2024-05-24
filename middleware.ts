@@ -1,5 +1,7 @@
 import type { NextRequest } from 'next/server';
  
 export function middleware(req: NextRequest) {
-    console.log(req.headers.get("host"));
+    const host = req.headers.get("host");
+    console.log(host);
+    // if (process.env.NODE_ENV == "development")
 }

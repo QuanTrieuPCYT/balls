@@ -7,6 +7,9 @@ import PanelURLList from "@/app/components/PanelURLList/PanelURLList";
 import { IPanelBreadcrumb } from "@/lib/utils";
 import { useSession } from "next-auth/react";
 import { redirect } from "next/navigation";
+import { ToastContainer } from "react-toastify";
+import { useTheme } from "next-themes";
+import { global_config } from "@/lib/global";
 
 const bc: IPanelBreadcrumb[] = [
   {
@@ -21,15 +24,18 @@ const bc: IPanelBreadcrumb[] = [
 
 export default function Page() {
   const session = useSession();
+  const { theme } = useTheme();
+
   if (session.status == "loading") return "";
-  if (session.status == "unauthenticated") redirect('/auth');
-  console.log(session.data);
+  if (session.status == "unauthenticated")  redirect(`${global_config.proxied_path}/auth`);
+
   return (
     <div className="container max-w-screen-lg w-full py-4">
       <PanelBreadcrumb breadcrumb={bc}/>
       <PanelCreateLinkBox />
       <PanelURLList />
       <PanelOverralStatistics />
+      <ToastContainer theme={theme} />
     </div>
   )
 }

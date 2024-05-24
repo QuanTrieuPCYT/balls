@@ -15,7 +15,5 @@
             ]
         }
     },
-    "include": [
-        "src/**/*"
-    ]
+    "include": ["controllers", "middlewares", "routes", "app.ts", "server.ts"]
 }

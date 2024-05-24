@@ -16,20 +16,32 @@ model User {
     role        Role            @default(USER)
     status      UserStatus      @default(AWAITING)
     apikey      String?
-    links       Link[]          
+    links       Link[]
+    domains     Domain[]        
 }
 
 model Link {
     id          Int             @id @default(autoincrement())
     createdAt   DateTime        @default(now())
     path        String          @unique
-    domain      String
+    domain      Domain          @relation(fields: [domainId], references: [id])
+    domainId    Int
     url         String
     expireAt    DateTime?
     password    String?
     status      LinkStatus      @default(ACTIVE)
     user        User            @relation(fields: [userId], references: [id])
     userId      Int
+}
+
+model Domain {
+    id          Int             @id @default(autoincrement())
+    createdAt   DateTime        @default(now())
+    domain      String
+    verified    Boolean         @default(false)
+    user        User            @relation(fields: [userId], references: [id])
+    userId      Int
+    link        Link[]
 }
 
 enum Role {
