@@ -18,6 +18,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { Id, toast } from 'react-toastify';
 import axios, { AxiosError } from "axios";
 import Tooltip from "./Tooltip";
+import Error from "next/error";
 
 const formSchema = z.object({
     url: z.string(),
@@ -63,14 +64,15 @@ export default function PanelCreateLinkBox() {
             const data = query.data;
             setSuccessData({ path: data.path, expireAt: data.expireAt, password: pass, url: data.url, domain: data.domain });
             setSuccessDialog(true);
-        } catch (e) {
-            return toast.error(e.response.data.error, { closeOnClick: true, autoClose: 3000, pauseOnFocusLoss: false, pauseOnHover: false, toastId: "axios-error" });
+        } catch (e: any) {
+            if (axios.isAxiosError(e))
+                return toast.error(e.response?.data.error, { closeOnClick: true, autoClose: 3000, pauseOnFocusLoss: false, pauseOnHover: false, toastId: "axios-error" });
         }
     }
 
     useEffect(() => {
         fetchDomains();
-    }, [])
+    })
 
     async function fetchDomains() {
         const getDomains = await axios.get("/app/api/links?domain");
@@ -228,7 +230,7 @@ export default function PanelCreateLinkBox() {
                         {successData.domain + "/" + successData.path} 
                     </p>
                     { successData.expireAt ? <span>Your link will expire at: {(new Date(successData.expireAt)).toLocaleDateString()}</span> : "" }
-                    { successData.expireAt ? <><p>Your link password is: <span className="text-red-400 font-bold">{successData.password}</span><br /><span className="text-sm">The password will not be shown again. Save it somewhere else!</span></p></> : "" }
+                    { successData.password ? <><p>Your link password is: <span className="text-red-400 font-bold">{successData.password}</span><br /><span className="text-sm">The password will not be shown again. Save it somewhere else!</span></p></> : "" }
                     <DialogClose asChild>
                         <Button>Got it!</Button>
                     </DialogClose>

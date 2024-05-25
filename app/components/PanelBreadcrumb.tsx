@@ -1,6 +1,7 @@
 import { IPanelBreadcrumb } from "@/lib/utils";
 import { Breadcrumb, BreadcrumbItem, BreadcrumbLink, BreadcrumbList, BreadcrumbPage, BreadcrumbSeparator } from "./ui/breadcrumb";
 import Link from "next/link";
+import { global_config } from "@/lib/global";
 
 export default function PanelBreadcrumb({ breadcrumb }: { breadcrumb: IPanelBreadcrumb[] }) {
     return (
@@ -15,7 +16,7 @@ export default function PanelBreadcrumb({ breadcrumb }: { breadcrumb: IPanelBrea
                             <BreadcrumbPage>{n.name}</BreadcrumbPage>
                             :
                             <BreadcrumbPage>
-                            <Link href={n.path} className="text-blue-500 hover:text-blue-500/80">
+                            <Link href={global_config.proxied_path + n.path} className="text-blue-500 hover:text-blue-500/80">
                                 {n.name}
                             </Link>
                             </BreadcrumbPage>

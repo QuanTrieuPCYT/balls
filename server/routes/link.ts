@@ -4,3 +4,4 @@ import * as controller from "../controllers/link";
 export const link = Router();
 
 link.get("/", controller.link);
+link.post("/", controller.link);

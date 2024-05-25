@@ -45,15 +45,6 @@ export async function POST(req: NextRequest) {
             { status: 400 },
         );
 
-    const finalize_data = {
-        path: path == "" ? generateToken(12, true, true) : path,
-        expireAt: expire == -1 ? null : expire,
-        password: password.length > 0 ? await hash(password, 12) : null,
-        userId: session.user?.id,
-        url: url,
-        domainId: user_domain?.id,
-    }
-
     const _path = path == "" ? generateToken(7, true, true) : path;
 
     const isPathExist = await prisma.link.findUnique({
