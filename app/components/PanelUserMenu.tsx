@@ -6,7 +6,6 @@ import { ReactNode } from "react";
 import ThemeToggleButton from "./ThemeToggleButton";
 import Link from "next/link";
 import { signOut, useSession } from "next-auth/react";
-import { global_config } from "@/lib/global";
 import { redirect } from "next/navigation";
 
 export default function PanelUserMenu({ children }: { children: ReactNode }) {
@@ -22,7 +21,7 @@ export default function PanelUserMenu({ children }: { children: ReactNode }) {
 			<DropdownMenuLabel>User: <span className="text-blue-400">{session.data?.user?.name}</span> </DropdownMenuLabel>
 			<DropdownMenuSeparator />
 			<DropdownMenuGroup>
-			<Link href={global_config.proxied_path + "/panel/settings"}>
+			<Link href="/panel/settings">
 				<DropdownMenuItem className="flex gap-2 items-center cursor-pointer">
 				<Settings className="h-4 w-4" />
 				<span>Settings</span>

@@ -11,7 +11,7 @@ import { global_config } from "@/lib/global";
 export default function Page() {
     const session = useSession();
     if (session.status == "loading") return "";
-    if (session.status == "authenticated") redirect(`${global_config.proxied_path}/panel`);
+    if (session.status == "authenticated") redirect(`/panel`);
 
     return (
         <div className="flex w-full p-8 justify-center">

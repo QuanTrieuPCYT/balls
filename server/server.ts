@@ -1,36 +1,37 @@
-import { app } from "./app";
+import express, { Request, Response } from "express";
+import next from "next";
+import * as path from "path";
+import bodyParser from "body-parser";
+import favicon from "serve-favicon";
 
-const port = app.get("port");
+const port = 3000;
+const isDev = process.env.NODE_ENV !== 'production';
+const app = next({ dev: isDev })
+const handle = app.getRequestHandler();
 
-const server = app.listen(port, onListening);
-server.on("error", onError);
+import { index } from "./routes/index";
+import { link } from "./routes/link";
 
-function onError(error: NodeJS.ErrnoException) {
-    if (error.syscall !== "listen") {
-        throw error;
-    }
+app.prepare().then(() => {
+    const server = express();
 
-    const bind = typeof port === "string" ? `Pipe ${port}` : `Port ${port}`;
+    server.set("views", path.join(__dirname, "/views"));
+    server.set("view engine", "ejs");
 
-    // handle specific listen errors with friendly messages
-    switch (error.code) {
-        case "EACCES":
-            console.error(`${bind} requires elevated privileges`);
-            process.exit(1);
-            break;
-        case "EADDRINUSE":
-            console.error(`${bind} is already in use`);
-            process.exit(1);
-            break;
-        default:
-            throw error;
-    }
-}
+    server.use(favicon(path.join(__dirname, '../app/', 'favicon.ico')))
+    server.use("/", index);
+    server.use("/app", index);
+    server.use(express.static(path.join(__dirname, "../public")));
+    server.use(bodyParser.urlencoded({ extended: true }));
+    server.use("/:path", link);
 
-function onListening() {
-    const addr = server.address();
-    const bind = typeof addr === "string" ? `pipe ${addr}` : `port ${addr.port}`;
-    console.log(`Listening on ${bind}`);
-}
+    server.all('*', (req: Request, res: Response) => {
+        return handle(req, res)
+    })
 
-export default server;
+    server.listen(port, () => {
+        console.log(`> Ready on http://localhost:${port}`);
+    }).on("error", (e) => {
+        throw e;
+    })
+})

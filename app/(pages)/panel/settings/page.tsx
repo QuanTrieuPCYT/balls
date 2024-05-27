@@ -25,7 +25,7 @@ const bc: IPanelBreadcrumb[] = [
 export default function Page() {
     const session = useSession();
     if (session.status == "loading") return "";
-    if (session.status == "unauthenticated") redirect(`${global_config.proxied_path}/panel`)
+    if (session.status == "unauthenticated") redirect(`/panel`)
     return (
         <div className="container max-w-screen-lg w-full py-4">
             <PanelBreadcrumb breadcrumb={bc}/>

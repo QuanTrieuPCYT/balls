@@ -27,7 +27,7 @@ export default function Page() {
   const { theme } = useTheme();
 
   if (session.status == "loading") return "";
-  if (session.status == "unauthenticated")  redirect(`${global_config.proxied_path}/auth`);
+  if (session.status == "unauthenticated")  redirect(`/auth`);
 
   return (
     <div className="container max-w-screen-lg w-full py-4">
