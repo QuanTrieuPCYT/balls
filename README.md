@@ -4,7 +4,7 @@
 </a>
 <h3 align="center">Balls🥚🥚🍆</h3>
 <p align="center">
-An URL Shortening service with cus
+An URL Shortening service with custom domain.
 
 
   
@@ -61,8 +61,6 @@ To get the project running locally on your machine, follow these steps below.
 ### Reverse proxy
 To be updated
 ### Built With
-
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
 
 - [Next.js](https://nextjs.org)
 - [Express.js](https://expressjs.com)
