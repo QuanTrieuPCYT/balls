@@ -1,7 +1,8 @@
 import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 async function main() {
-    const alice = await prisma.user.upsert({
+    if (!process.env.BASE_DOMAIN) throw console.error("[ERROR] No BASE_DOMAIN set. Please set it in .env!");
+    const _system = await prisma.user.upsert({
         where: { id: 1 },
         update: {},
         create: {
@@ -10,6 +11,15 @@ async function main() {
             password: "system_reserved",
             role: "ADMIN",
             status: "ACTIVE"
+        },
+    })
+    const _basedomain = await prisma.domain.upsert({
+        where: { id: 1 },
+        update: {},
+        create: {
+            domain: process.env.BASE_DOMAIN,
+            verified: true,
+            userId: 1
         },
     })
 }

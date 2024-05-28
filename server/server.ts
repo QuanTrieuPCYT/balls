@@ -2,6 +2,7 @@ import express, { Request, Response } from "express";
 import next from "next";
 import * as path from "path";
 import bodyParser from "body-parser";
+import cookieParser from "cookie-parser";
 import favicon from "serve-favicon";
 
 const port = 3000;
@@ -18,13 +19,13 @@ app.prepare().then(() => {
     server.set("views", path.join(__dirname, "/views"));
     server.set("view engine", "ejs");
 
-    server.use(favicon(path.join(__dirname, '../app/', 'favicon.ico')))
+    server.use(cookieParser());
+    server.use(/\/((?!app).)*/,bodyParser.urlencoded({ extended: true }));
     server.use("/", index);
     server.use("/app", index);
-    server.use(express.static(path.join(__dirname, "../public")));
-    server.use(bodyParser.urlencoded({ extended: true }));
     server.use("/:path", link);
-
+    server.use(express.static(path.join(__dirname, "../public")));
+    
     server.all('*', (req: Request, res: Response) => {
         return handle(req, res)
     })

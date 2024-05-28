@@ -15,5 +15,5 @@
         },
         
     },
-    "include": ["controllers", "middlewares", "routes", "app.ts", "server.ts"]
+    "include": ["controllers", "routes", "app.ts", "server.ts"]
 }
